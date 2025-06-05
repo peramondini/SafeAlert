@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Áreas de Risco - FloodAlert</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>window.FontAwesomeConfig = { autoReplaceSvg: 'nest' };</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="css/mapa-style.css">
+    <script src="js/tailwind-config.js" defer></script>
+</head>
+<body class="font-inter bg-gray-50">
+    <!-- Header -->
+    <header id="header" class="bg-white shadow-sm fixed w-full z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-water text-primary text-2xl"></i>
+                    <a href="index.html" class="text-xl font-bold text-gray-800">SafeAlert</a>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="index.html" class="text-gray-600 hover:text-primary cursor-pointer nav-link">Home</a>
+                    <span class="text-primary font-semibold cursor-pointer nav-link active">Monitoramento</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-mapa" class="pt-24 pb-16 min-h-[900px] bg-gray-50">
+        <section id="section-mapa-main" class="container mx-auto px-4">
+            <!-- Header Section -->
+            <div id="mapa-header-block" class="mb-12 text-center max-w-2xl mx-auto fade-in">
+                <h1 class="text-4xl font-bold text-gray-800 mb-4">Áreas de Risco de Enchente</h1>
+                <p class="text-gray-600 text-lg">Acompanhe as zonas sensíveis, status de risco e envie alertas para moradores em tempo real.</p>
+            </div>
+
+            <!-- Areas de risco grid -->
+            <div id="mapa-grid-block" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Zona Norte - Alto Risco -->
+                <div id="area-card-zona-norte" class="risk-card high-risk bg-white rounded-2xl shadow-lg p-8 flex flex-col justify-between card-hover">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-location-dot text-danger text-xl pulse-icon"></i>
+                                <h2 class="text-xl font-semibold">Zona Norte</h2>
+                            </div>
+                            <span class="px-3 py-1 bg-red-100 text-danger rounded-full text-xs font-semibold status-badge high">Alto Risco</span>
+                        </div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-users text-gray-400"></i>
+                            <span class="text-gray-700">População estimada: <span class="font-semibold">15.000</span></span>
+                        </div>
+                        <div class="flex items-center gap-2 mb-6">
+                            <i class="fa-solid fa-water text-blue-400"></i>
+                            <span class="text-gray-600">Possibilidade de inundação: <span class="font-semibold risk-percentage">78%</span></span>
+                        </div>
+                        <div class="risk-bar mb-4">
+                            <div class="risk-progress high" style="width: 78%"></div>
+                        </div>
+                    </div>
+                    <button data-zona="Zona Norte" class="alert-button w-full bg-danger hover:bg-red-700 text-white font-semibold px-4 py-3 rounded-lg transition duration-300 text-base flex justify-center items-center gap-2 mt-2">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        Enviar Alerta
+                    </button>
+                </div>
+
+                <!-- Centro - Médio Risco -->
+                <div id="area-card-centro" class="risk-card medium-risk bg-white rounded-2xl shadow-lg p-8 flex flex-col justify-between card-hover">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-location-dot text-yellow-500 text-xl"></i>
+                                <h2 class="text-xl font-semibold">Centro</h2>
+                            </div>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold status-badge medium">Médio Risco</span>
+                        </div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-users text-gray-400"></i>
+                            <span class="text-gray-700">População estimada: <span class="font-semibold">25.000</span></span>
+                        </div>
+                        <div class="flex items-center gap-2 mb-6">
+                            <i class="fa-solid fa-water text-blue-400"></i>
+                            <span class="text-gray-600">Possibilidade de inundação: <span class="font-semibold risk-percentage">55%</span></span>
+                        </div>
+                        <div class="risk-bar mb-4">
+                            <div class="risk-progress medium" style="width: 55%"></div>
+                        </div>
+                    </div>
+                    <button data-zona="Centro" class="alert-button w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-3 rounded-lg transition duration-300 text-base flex justify-center items-center gap-2 mt-2">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        Enviar Alerta
+                    </button>
+                </div>
+
+                <!-- Zona Sul - Baixo Risco -->
+                <div id="area-card-zona-sul" class="risk-card low-risk bg-white rounded-2xl shadow-lg p-8 flex flex-col justify-between card-hover">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-location-dot text-green-500 text-xl"></i>
+                                <h2 class="text-xl font-semibold">Zona Sul</h2>
+                            </div>
+                            <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold status-badge low">Baixo Risco</span>
+                        </div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <i class="fa-solid fa-users text-gray-400"></i>
+                            <span class="text-gray-700">População estimada: <span class="font-semibold">20.000</span></span>
+                        </div>
+                        <div class="flex items-center gap-2 mb-6">
+                            <i class="fa-solid fa-water text-blue-400"></i>
+                            <span class="text-gray-600">Possibilidade de inundação: <span class="font-semibold risk-percentage">22%</span></span>
+                        </div>
+                        <div class="risk-bar mb-4">
+                            <div class="risk-progress low" style="width: 22%"></div>
+                        </div>
+                    </div>
+                    <button data-zona="Zona Sul" class="alert-button w-full bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-3 rounded-lg transition duration-300 text-base flex justify-center items-center gap-2 mt-2">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        Enviar Alerta
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Sumario -->
+            <div id="mapa-summary-block" class="mt-16 max-w-xl mx-auto bg-primary rounded-2xl shadow-md text-white flex flex-col md:flex-row items-center justify-between px-8 py-6 gap-4 summary-card">
+                <div class="flex items-center gap-4">
+                    <i class="fa-solid fa-circle-exclamation text-3xl pulse-icon"></i>
+                    <div>
+                        <div class="text-lg font-semibold">População Total em Áreas de Risco</div>
+                        <div class="text-2xl font-bold population-counter" data-target="60000">0 Pessoas</div>
+                    </div>
+                </div>
+                <button id="alerta-geral-btn" class="bg-white text-primary hover:bg-gray-100 font-semibold px-6 py-3 rounded-lg transition duration-300 flex items-center gap-2 btn-pulse">
+                    <i class="fa-solid fa-bell"></i>
+                    Simular Alerta Geral
+                </button>
+            </div>
+
+            <!-- Estatisticas -->
+            <div id="statistics-section" class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl p-6 text-center shadow-md stat-card">
+                    <i class="fa-solid fa-chart-line text-3xl text-blue-500 mb-3"></i>
+                    <h3 class="text-lg font-semibold mb-2">Alertas Enviados Hoje</h3>
+                    <p class="text-2xl font-bold text-blue-600 counter" data-target="127">0</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center shadow-md stat-card">
+                    <i class="fa-solid fa-clock text-3xl text-green-500 mb-3"></i>
+                    <h3 class="text-lg font-semibold mb-2">Tempo de Resposta Médio</h3>
+                    <p class="text-2xl font-bold text-green-600">2.3 min</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 text-center shadow-md stat-card">
+                    <i class="fa-solid fa-shield-check text-3xl text-purple-500 mb-3"></i>
+                    <h3 class="text-lg font-semibold mb-2">Pessoas Protegidas</h3>
+                    <p class="text-2xl font-bold text-purple-600 counter" data-target="60000">0</p>
+                </div>
+            </div>
+
+            <!-- Real-time Updates -->
+            <div id="realtime-section" class="mt-16">
+                <h2 class="text-2xl font-bold text-center mb-8">Atualizações em Tempo Real</h2>
+                <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div id="updates-container" class="space-y-4">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-white border-t mt-16 py-6">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2 text-gray-500">
+                <i class="fa-solid fa-water text-primary"></i>
+                <span>FloodAlert © 2025</span>
+            </div>
+        </div>
+    </footer>
+    <script src="js/mapa.js"></script>
+</body>
+</html>
